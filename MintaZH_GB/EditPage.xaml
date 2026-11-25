@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MintaZH_GB.EditPage"
+             Title="EditPage">
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="BackgroundColor" Value="LightBlue"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="FontSize" Value="Medium"/>
+        </Style>
+    </ContentPage.Resources>
+    <VerticalStackLayout Spacing="10">
+        <Label Text="Name" />
+        <Entry Text="{Binding EditedStudent.Name}"/>
+        <Label Text="Grade" />
+        <Entry Text="{Binding EditedStudent.Average}"/>
+        <Label Text="Neptun balance" />
+        <Entry Text="{Binding EditedStudent.Balance}"/>
+        <Label Text="Status"/>
+        <HorizontalStackLayout Spacing="10">
+            <CheckBox IsChecked="{Binding EditedStudent.IsActive}"/>
+            <Label Text="Active?" BackgroundColor="White" FontSize="Default"/>
+        </HorizontalStackLayout>
+        <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="Fill"/>
+    </VerticalStackLayout>
+</ContentPage>

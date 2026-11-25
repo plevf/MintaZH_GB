@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MintaZH_GB.MainPage"
+             xmlns:local="clr-namespace:MintaZH_GB"
+             x:DataType="local:MainPageViewModel">
+    <ContentPage.Resources>
+        <local:GradeToProgressConverter x:Key="progressConv"/>
+        <local:GradeToColorConverter x:Key="colorConv"/>
+    </ContentPage.Resources>
+    <VerticalStackLayout Spacing="10">
+        <HorizontalStackLayout Spacing="10" >
+            <Button Text="New" Command="{Binding NewStudentCommand}"/>
+            <Button Text="Edit" Command="{Binding EditStudentCommand}"/>
+            <Button Text="Delete" Command="{Binding DeleteSelectedCommand}"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout Spacing="10">
+            <Button Text="Share average grade" Command="{Binding ShareAverageCommand}"/>
+            <Button Text="Share active students" Command="{Binding ShareListCommand}"/>
+        </HorizontalStackLayout>
+        <Label Text="{Binding AllStudentsAverage, StringFormat='Average grade of all students: {0}'}"/>
+        <Border Stroke="DarkGreen">
+        <CollectionView ItemsSource="{Binding ActiveStudents}" SelectedItem="{Binding SelectedStudent}"
+                        SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="local:Student">
+                    <Border>
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Name}" FontAttributes="Bold" />
+                                <Label Text="{Binding Balance, StringFormat='Balance: {0}'}"/>
+                                <Grid ColumnDefinitions="Auto, *">
+                                    <Label Text="{Binding Average}"/>
+                                    <ProgressBar Grid.Column="1"
+                                        Progress="{Binding Average, Converter={StaticResource progressConv}}" 
+                                        ProgressColor="{Binding Average,Converter={StaticResource colorConv}}"/>
+                                </Grid>
+                            </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        </Border>
+        <Border Stroke="DarkGreen">
+            <CollectionView ItemsSource="{Binding PassiveStudents}" SelectedItem="{Binding SelectedStudent}"
+                            SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="local:Student">
+                        <Border>
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Name}"  FontAttributes="Bold" />
+                                <Label Text="{Binding Balance, StringFormat='Balance: {0}'}"/>
+                                <Grid ColumnDefinitions="Auto, *">
+                                    <Label Text="{Binding Average}"/>
+                                    <ProgressBar Grid.Column="1"
+                                        Progress="{Binding Average, Converter={StaticResource progressConv}}" 
+                                        ProgressColor="{Binding Average,Converter={StaticResource colorConv}}"/>
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+    </VerticalStackLayout>
+
+</ContentPage>
